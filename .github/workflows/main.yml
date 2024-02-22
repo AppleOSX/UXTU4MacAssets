@@ -1,0 +1,65 @@
+name: Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: Build and analyse default scheme using xcodebuild command
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Clone DirectHW
+        run: git clone https://github.com/joevt/directhw.git
+        
+      - name: Xcodebuild 
+        working-directory: ./directhw/DirectHW
+        run: xcodebuild -alltargets -project DirectHW.xcodeproj
+        
+      - name: libs
+        working-directory: ./directhw/DirectHW
+        run: make libs
+
+      - name: Prepare binaries
+        run: |
+          cd Artifacts 
+          mkdir -p /tmp/include/DirectHW          
+          cp /Users/gorouflex/Downloads/Artifacts/usr/local/include/DirectHW.h /tmp/include/DirectHW
+          cp /Users/gorouflex/Downloads/Artifacts/libDirectHW.a  /tmp/include
+
+      - name: Clone and Build pciutils-osx
+        run: |
+          git clone https://github.com/vampirecat35/pciutils-osx.git     
+          cd pciutils-osx
+          sed -i -e 's/Frameworks/Frameworks -I\/tmp\/include/' Makefile
+          sed -i -e 's/usr\/local\/lib/tmp\/include/' lib/configure
+          make
+          mkdir -p /tmp/include/pci
+          cp lib/*.h /tmp/include/pci
+          cp lib/libpci.a /tmp/include
+
+      - name: Clone and Build RyzenAdj
+        run: |
+          git clone https://github.com/FlyGoat/RyzenAdj.git
+          cd RyzenAdj
+          sed -i -e 's/${INC_DIR}/\/tmp\/include/' CMakeLists.txt
+          sed -i -e 's/ pci/ pci DirectHW/' CMakeLists.txt
+          sed -i -e 's/${OS_LINK_DIR}/\/tmp\/include/' CMakeLists.txt
+          mkdir build && cd build
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          make
+          chmod +x RyzenAdj
+
+      - name: Upload to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Artifacts
+          path: |
+            directhw/DirectHW/build/Release/DirectHW.kext
+            RyzenAdj/build/RyzenAdj
