@@ -64,4 +64,4 @@ jobs:
           name: Artifacts
           path: |
             Artifacts/DirectHW.kext
-            Artifacts/yzenadj
+            Artifacts/ryzenadj
