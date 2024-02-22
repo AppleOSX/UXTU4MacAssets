@@ -51,7 +51,7 @@ jobs:
           mkdir build && cd build
           cmake -DCMAKE_BUILD_TYPE=Release ..
           make
-          chmod +x ryzenadj
+          chmod +x RyzenAdj/build/ryzenadj
 
       - name: Prepare final product
         run: |
