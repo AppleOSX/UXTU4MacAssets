@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Build and analyse default scheme using xcodebuild command
+    name: Build UXTU4Mac Assets
     runs-on: macos-latest
 
     steps:
@@ -56,7 +56,7 @@ jobs:
       - name: Prepare final product
         run: |
           mkdir -p Artifacts
-          cp directhw/DirectHW/build/Release/DirectHW.kext Artifacts
+          cp -r directhw/DirectHW/build/Release/DirectHW.kext Artifacts
           cp RyzenAdj/build/ryzenadj Artifacts
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
