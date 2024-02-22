@@ -25,10 +25,10 @@ jobs:
 
       - name: Prepare binaries
         run: |
-          cd Artifacts 
+          cd DirectHW/build/Release
           mkdir -p /tmp/include/DirectHW          
-          cp /Users/gorouflex/Downloads/Artifacts/usr/local/include/DirectHW.h /tmp/include/DirectHW
-          cp /Users/gorouflex/Downloads/Artifacts/libDirectHW.a  /tmp/include
+          cp Release/usr/local/include/DirectHW.h /tmp/include/DirectHW
+          cp Release/libDirectHW.a  /tmp/include
 
       - name: Clone and Build pciutils-osx
         run: |
