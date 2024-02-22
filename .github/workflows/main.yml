@@ -51,12 +51,12 @@ jobs:
           mkdir build && cd build
           cmake -DCMAKE_BUILD_TYPE=Release ..
           make
-          chmod +x /RyzenAdj/build/ryzenadj
 
       - name: Prepare final product
         run: |
           mkdir -p Artifacts
           cp -r directhw/DirectHW/build/Release/DirectHW.kext Artifacts
+          chmod +x RyzenAdj/build/ryzenadj
           cp RyzenAdj/build/ryzenadj Artifacts
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v3
