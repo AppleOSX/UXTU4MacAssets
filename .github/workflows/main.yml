@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Build UXTU4Mac Assets
-    runs-on: macos-latest
+    runs-on: macos-12
 
     steps:
       - name: Checkout
@@ -28,6 +28,7 @@ jobs:
 
       - name: Prepare binaries
         run: |
+          brew install cmake
           cd directhw/DirectHW/build
           mkdir -p /tmp/include/DirectHW          
           cp Release/usr/local/include/DirectHW.h /tmp/include/DirectHW
