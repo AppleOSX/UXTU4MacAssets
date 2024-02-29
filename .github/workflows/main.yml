@@ -36,8 +36,8 @@ jobs:
 
       - name: Clone and Build pciutils-osx
         run: |
-          git clone https://github.com/vampirecat35/pciutils-osx.git     
-          cd pciutils-osx
+          git clone https://github.com/joevt/pciutils
+          cd pciutils
           sed -i -e 's/Frameworks/Frameworks -I\/tmp\/include/' Makefile
           sed -i -e 's/usr\/local\/lib/tmp\/include/' lib/configure
           make
