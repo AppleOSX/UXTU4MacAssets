@@ -54,6 +54,7 @@ jobs:
           sed -i -e 's/ pci/ pci ZLIB::ZLIB/' CMakeLists.txt
           mkdir build && cd build
           cmake -DCMAKE_BUILD_TYPE=Release ..
+          /Applications/Xcode_14.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc -framework IOKit
           make
           
       - name: Prepare final product
