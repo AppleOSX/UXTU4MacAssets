@@ -51,7 +51,7 @@ jobs:
           cd RyzenAdj
           sed -i -e 's/${INC_DIR}/\/tmp\/include/' CMakeLists.txt
           sed -i -e 's/${OS_LINK_DIR}/\/tmp\/include/' CMakeLists.txt
-          
+          sed -i -e 's/ pci/ pci ZLIB::ZLIB/' CMakeLists.txt
           mkdir build && cd build
           cmake -DCMAKE_BUILD_TYPE=Release ..
           make
