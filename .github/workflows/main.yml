@@ -50,8 +50,8 @@ jobs:
           git clone https://github.com/FlyGoat/RyzenAdj.git
           cd RyzenAdj
           sed -i -e 's/${INC_DIR}/\/tmp\/include/' CMakeLists.txt
-          sed -i -e 's/ pci/ pci DirectHW/' CMakeLists.txt
           sed -i -e 's/${OS_LINK_DIR}/\/tmp\/include/' CMakeLists.txt
+          
           mkdir build && cd build
           cmake -DCMAKE_BUILD_TYPE=Release ..
           make
